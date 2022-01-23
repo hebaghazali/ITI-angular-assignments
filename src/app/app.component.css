@@ -1,0 +1,16 @@
+.main {
+  min-height: 60vh;
+}
+.main side-menu {
+  flex-basis: 30%;
+  border: 1px solid #000;
+}
+.main app-products {
+  flex-basis: 70%;
+  border: 1px solid #000;
+}
+.main > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
