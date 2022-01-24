@@ -14,57 +14,68 @@
   </ul>
 </div>
 
-<div class="dropdown show">
-  <a
-    class="btn btn-outline-danger dropdown-toggle"
-    href="#"
-    role="button"
-    id="dropdownMenuLink"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    aria-expanded="false"
-  >
-    Categories
-  </a>
-
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-    <a
-      *ngFor="let item of Categories"
-      class="dropdown-item"
-      href="#"
-      (click)="chooseCategory(item.id)"
-      >{{ item.name }}</a
-    >
-  </div>
-</div>
+<select [(ngModel)]="selectedCategory" class="select-menu">
+  <option *ngFor="let cat of Categories" [value]="cat.id">
+    {{ cat.name }}
+  </option>
+</select>
 
 <div *ngIf="!isPurchased; else showPurchaseThanks" class="w-75">
+  Purchase Date: {{ purchaseDate | date: "mediumDate" }}
   <table class="table">
     <thead>
-      <!-- <th scope="col" *ngFor="let itemName in ProductList[0]">{{ itemName }}</th> -->
       <tr>
         <th scope="col">id</th>
         <th scope="col">name</th>
         <th scope="col">quantity</th>
         <th scope="col">price</th>
         <th scope="col">categoryID</th>
+        <th scope="col">image</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let products of ProductList">
-        <ng-container *ngIf="chosenCategory == products.categoryID">
+      <tr
+        *ngFor="let products of ProductList"
+        [ngStyle]="{
+          backgroundColor: products.quantity == 1 ? '#fcf050' : 'initial'
+        }"
+        [hidden]="products.quantity == 0"
+      >
+        <ng-container *ngIf="selectedCategory == products.categoryID">
           <th scope="row">{{ products.id }}</th>
           <td>{{ products.name }}</td>
           <td>{{ products.quantity }}</td>
-          <td>{{ products.price }}</td>
+          <td>{{ products.price | currency: "USD" }}</td>
           <td>{{ products.categoryID }}</td>
-          <!-- <td *ngFor="let product of products">
-            {{ product }}
-          </td> -->
+          <td>
+            <img ProductCard [src]="products.img" alt="image" class="w-100" />
+          </td>
+          <td>
+            <ng-container [ngSwitch]="products.quantity">
+              <div *ngSwitchCase="1"><strong>Last item!</strong></div>
+            </ng-container>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="buyProduct(products.id)"
+            >
+              Buy
+            </button>
+          </td>
         </ng-container>
       </tr>
     </tbody>
   </table>
+
+  <h3>
+    National ID Date: {{ 29909011509345 | EGPNationalID | date: "longDate" }}
+  </h3>
+
+  <h3>Credit Card: {{ 1000000000000000 | creditCard }}</h3>
+
+  <h3 *ngIf="orderTotalPrice">Total Price: {{ orderTotalPrice }}</h3>
 
   <button type="button" class="btn btn-primary" (click)="hideTable()">
     Buy

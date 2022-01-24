@@ -16,7 +16,9 @@ export class ProductsComponent {
   ProductList: IProduct[];
   Categories: ICategory[];
   isPurchased: boolean;
-  chosenCategory: number;
+  selectedCategory: number;
+  orderTotalPrice: number = 0;
+  purchaseDate: Date;
 
   constructor() {
     this.store = new Store(
@@ -41,16 +43,40 @@ export class ProductsComponent {
       },
       {
         id: 2,
+        name: 'ringer t-shirt',
+        quantity: 10,
+        price: 150,
+        img: 'https://fakeimg.pl/250x100/',
+        categoryID: 22,
+      },
+      {
+        id: 20,
+        name: 'pocket t-shirt',
+        quantity: 2,
+        price: 250,
+        img: 'https://fakeimg.pl/250x100/',
+        categoryID: 22,
+      },
+      {
+        id: 3,
         name: 'jacket',
-        quantity: 17,
+        quantity: 1,
         price: 400,
         img: 'https://fakeimg.pl/250x100/',
         categoryID: 30,
       },
       {
-        id: 3,
+        id: 4,
         name: 'coat',
         quantity: 25,
+        price: 500,
+        img: 'https://fakeimg.pl/250x100/',
+        categoryID: 30,
+      },
+      {
+        id: 5,
+        name: 'overcoat',
+        quantity: 0,
         price: 500,
         img: 'https://fakeimg.pl/250x100/',
         categoryID: 30,
@@ -64,7 +90,9 @@ export class ProductsComponent {
 
     this.isPurchased = false;
 
-    this.chosenCategory = 0;
+    this.selectedCategory = 0;
+
+    this.purchaseDate = new Date();
   }
 
   hideTable() {
@@ -72,6 +100,14 @@ export class ProductsComponent {
   }
 
   chooseCategory(category: number) {
-    this.chosenCategory = category;
+    this.selectedCategory = category;
+  }
+
+  buyProduct(productID: number) {
+    this.ProductList.forEach((product) => {
+      if (product.id === productID) {
+        product.quantity--;
+      }
+    });
   }
 }
