@@ -29,7 +29,6 @@ export class ProductsComponent {
 
     this.clientName = 'Heba';
 
-    // this.discount = DiscountOffers.NoDiscount;
     this.discount = DiscountOffers['15%'];
 
     this.ProductList = [
