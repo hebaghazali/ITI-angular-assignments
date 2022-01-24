@@ -11,6 +11,6 @@ export class EGPNationalIDPipe implements PipeTransform {
     const month = ID.slice(3, 5);
     const day = ID.slice(5, 7);
 
-    return new Date(+`19${+year}`, +month - 1, +day);
+    return new Date(+`19${year}`, +month - 1, +day);
   }
 }
