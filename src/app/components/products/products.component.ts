@@ -90,7 +90,7 @@ export class ProductsComponent {
 
     this.isPurchased = false;
 
-    this.selectedCategory = 0;
+    this.selectedCategory = 22;
 
     this.purchaseDate = new Date();
   }

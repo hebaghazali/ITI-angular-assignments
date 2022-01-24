@@ -20,67 +20,48 @@
   </option>
 </select>
 
-<div *ngIf="!isPurchased; else showPurchaseThanks" class="w-75">
-  Purchase Date: {{ purchaseDate | date: "mediumDate" }}
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">id</th>
-        <th scope="col">name</th>
-        <th scope="col">quantity</th>
-        <th scope="col">price</th>
-        <th scope="col">categoryID</th>
-        <th scope="col">image</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let products of ProductList"
-        [ngStyle]="{
-          backgroundColor: products.quantity == 1 ? '#fcf050' : 'initial'
-        }"
-        [hidden]="products.quantity == 0"
+Purchase Date: {{ purchaseDate | date: "mediumDate" }}
+<div *ngIf="!isPurchased; else showPurchaseThanks" class="products-container">
+  <div
+    *ngFor="let products of ProductList"
+    [ngStyle]="{
+      backgroundColor: products.quantity == 1 ? '#fcf050' : 'initial'
+    }"
+    [ngClass]="{ 'bg-danger': products.quantity == 0 }"
+    ProductCard
+    BGColor="red"
+  >
+    <ng-container *ngIf="selectedCategory == products.categoryID">
+      <img [src]="products.img" alt="image" class="product-img" />
+      <p>{{ products.name }}</p>
+      <p>{{ products.quantity }}</p>
+      <p>{{ products.price | currency: "USD" }}</p>
+      <p>{{ products.categoryID }}</p>
+      <ng-container [ngSwitch]="products.quantity">
+        <div *ngSwitchCase="0">Out of stock</div>
+        <div *ngSwitchCase="1"><strong>Last item!</strong></div>
+      </ng-container>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="buyProduct(products.id)"
+        [disabled]="products.quantity == 0"
       >
-        <ng-container *ngIf="selectedCategory == products.categoryID">
-          <th scope="row">{{ products.id }}</th>
-          <td>{{ products.name }}</td>
-          <td>{{ products.quantity }}</td>
-          <td>{{ products.price | currency: "USD" }}</td>
-          <td>{{ products.categoryID }}</td>
-          <td>
-            <img ProductCard [src]="products.img" alt="image" class="w-100" />
-          </td>
-          <td>
-            <ng-container [ngSwitch]="products.quantity">
-              <div *ngSwitchCase="1"><strong>Last item!</strong></div>
-            </ng-container>
-          </td>
-          <td>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              (click)="buyProduct(products.id)"
-            >
-              Buy
-            </button>
-          </td>
-        </ng-container>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>
-    National ID Date: {{ 29909011509345 | EGPNationalID | date: "longDate" }}
-  </h3>
-
-  <h3>Credit Card: {{ 1000000000000000 | creditCard }}</h3>
-
-  <h3 *ngIf="orderTotalPrice">Total Price: {{ orderTotalPrice }}</h3>
-
-  <button type="button" class="btn btn-primary" (click)="hideTable()">
-    Buy
-  </button>
+        Buy
+      </button>
+    </ng-container>
+  </div>
 </div>
+
+<h3>
+  National ID Date: {{ 29909011509345 | EGPNationalID | date: "longDate" }}
+</h3>
+
+<h3>Credit Card: {{ 1000000000000000 | creditCard }}</h3>
+
+<h3 *ngIf="orderTotalPrice">Total Price: {{ orderTotalPrice }}</h3>
+
+<button type="button" class="btn btn-primary" (click)="hideTable()">Buy</button>
 
 <ng-template #showPurchaseThanks>
   <div class="mt-3">Thanks for purchasing from our store {{ clientName }}</div>
