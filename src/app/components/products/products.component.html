@@ -48,7 +48,13 @@
           <td>{{ products.price | currency: "USD" }}</td>
           <td>{{ products.categoryID }}</td>
           <td>
-            <img ProductCard [src]="products.img" alt="image" class="w-100" />
+            <img
+              ProductCard
+              BGColor="red"
+              [src]="products.img"
+              alt="image"
+              class="w-100"
+            />
           </td>
           <td>
             <ng-container [ngSwitch]="products.quantity">
