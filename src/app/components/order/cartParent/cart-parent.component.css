@@ -1,0 +1,7 @@
+.select-menu {
+  border: 1px solid #dc3545;
+  border-radius: 5px;
+  padding: 5px;
+  color: #dc3545;
+  cursor: pointer;
+}

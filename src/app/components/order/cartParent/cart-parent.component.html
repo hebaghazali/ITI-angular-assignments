@@ -1,0 +1,63 @@
+<select [(ngModel)]="selectedCategory" class="select-menu">
+  <option *ngFor="let cat of Categories" [value]="cat.id">
+    {{ cat.name }}
+  </option>
+</select>
+
+<hr />
+
+<app-cart-child
+  [selectedCategoryInput]="selectedCategory"
+  (cartChanged)="onItemBought($event)"
+  class="w-100"
+></app-cart-child>
+
+<hr />
+
+<table class="table">
+  <thead>
+    <tr>
+      <th #upperCase scope="col">id</th>
+      <th scope="col">name</th>
+      <th scope="col">price</th>
+      <th scope="col">quantity</th>
+      <th scope="col">#items</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of cartProductList">
+      <td>{{ product.id }}</td>
+      <td>{{ product.pname }}</td>
+      <td>{{ product.price | currency: "USD" }}</td>
+      <td>{{ product.count }}</td>
+      <td>
+        <input
+          #noOfItems
+          type="number"
+          class="form-control"
+          [value]="product.count"
+          min="0"
+          [max]="product.availQuantity"
+        />
+      </td>
+      <td>
+        <button type="button" class="btn btn-secondary w-100">Buy</button>
+      </td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-danger w-100"
+          (click)="removeFromTable(product.id)"
+        >
+          X
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Order Total Price: {{ orderTotalPrice }}</h3>
+
+<button type="button" class="btn btn-success" (click)="placeOrder()">
+  Place Order
+</button>

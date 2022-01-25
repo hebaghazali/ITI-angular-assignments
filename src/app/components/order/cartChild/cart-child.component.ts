@@ -1,24 +1,32 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { DiscountOffers } from 'src/app/ViewModels/discount-offers';
-import { IProduct } from './../../ViewModels/iproduct';
-import { Store } from './../../ViewModels/store';
-import { ICategory } from './../../ViewModels/icategory';
+import { IProduct } from '../../../ViewModels/iproduct';
+import { Store } from '../../../ViewModels/store';
+import { CartVM } from '../../../ViewModels/cart';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css'],
+  selector: 'app-cart-child',
+  templateUrl: './cart-child.component.html',
+  styleUrls: ['./cart-child.component.css'],
 })
-export class ProductsComponent {
+export class CartChildComponent {
   discount: DiscountOffers;
   store: Store;
   clientName: string;
   ProductList: IProduct[];
-  Categories: ICategory[];
   isPurchased: boolean;
-  selectedCategory: number;
-  orderTotalPrice: number = 0;
   purchaseDate: Date;
+
+  @Input() selectedCategoryInput: number;
+  orderTotalPriceOutput: number = 0;
+  @Output() cartChanged: EventEmitter<CartVM>;
+  cartOutput?: CartVM;
 
   constructor() {
     this.store = new Store(
@@ -30,6 +38,8 @@ export class ProductsComponent {
     this.clientName = 'Heba';
 
     this.discount = DiscountOffers['15%'];
+
+    this.cartChanged = new EventEmitter<CartVM>();
 
     this.ProductList = [
       {
@@ -90,25 +100,17 @@ export class ProductsComponent {
       },
     ];
 
-    this.Categories = [
-      { id: 0, name: 'All' },
-      { id: 22, name: 'Desktops' },
-      { id: 30, name: 'Laptops' },
-    ];
-
     this.isPurchased = false;
 
-    this.selectedCategory = 0;
+    this.selectedCategoryInput = 0;
 
     this.purchaseDate = new Date();
   }
 
   getProductList() {
-    if (Number(this.selectedCategory) === 0) {
-      return this.ProductList;
-    }
+    if (Number(this.selectedCategoryInput) === 0) return this.ProductList;
     return this.ProductList.filter(
-      (product) => product.categoryID === Number(this.selectedCategory)
+      (product) => product.categoryID === Number(this.selectedCategoryInput)
     );
   }
 
@@ -116,15 +118,25 @@ export class ProductsComponent {
     this.isPurchased = true;
   }
 
-  chooseCategory(category: number) {
-    this.selectedCategory = category;
+  count: number = 0;
+
+  addToCart() {
+    this.cartChanged.emit(this.cartOutput);
   }
 
-  buyProduct(productID: number) {
-    this.ProductList.forEach((product) => {
-      if (product.id === productID) {
-        product.quantity--;
-      }
-    });
+  selectQuantity(
+    e: any,
+    pID: number,
+    pName: string,
+    pPrice: number,
+    availQty: number
+  ) {
+    this.cartOutput = {
+      id: pID,
+      pname: pName,
+      count: e.target.value,
+      price: pPrice,
+      availQuantity: availQty,
+    };
   }
 }

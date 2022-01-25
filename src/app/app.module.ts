@@ -8,8 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ProductsComponent } from './components/products/products.component';
+import { CartParentComponent } from './components/order/cartParent/cart-parent.component';
+import { CartChildComponent } from './components/order/cartChild/cart-child.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductCardDirective } from './Directives/product-card.directive';
 import { EGPNationalIDPipe } from './Pipes/egpnational-id.pipe';
@@ -20,7 +22,8 @@ import { CreditCardPipe } from './Pipes/credit-card.pipe';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProductsComponent,
+    CartChildComponent,
+    CartParentComponent,
     SideMenuComponent,
     ProductCardDirective,
     EGPNationalIDPipe,
