@@ -11,9 +11,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProductsComponent } from './components/products/products.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ProductCardDirective } from './product-card.directive';
-import { EGPNationalIDPipe } from './egpnational-id.pipe';
-import { CreditCardPipe } from './credit-card.pipe';
+import { ProductCardDirective } from './Directives/product-card.directive';
+import { EGPNationalIDPipe } from './Pipes/egpnational-id.pipe';
+import { CreditCardPipe } from './Pipes/credit-card.pipe';
 
 @NgModule({
   declarations: [

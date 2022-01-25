@@ -23,33 +23,31 @@
 Purchase Date: {{ purchaseDate | date: "mediumDate" }}
 <div *ngIf="!isPurchased; else showPurchaseThanks" class="products-container">
   <div
-    *ngFor="let products of ProductList"
+    *ngFor="let products of getProductList(selectedCategory)"
     [ngStyle]="{
       backgroundColor: products.quantity == 1 ? '#fcf050' : 'initial'
     }"
     [ngClass]="{ 'bg-danger': products.quantity == 0 }"
     ProductCard
-    BGColor="red"
+    BGColor="#ac9597"
   >
-    <ng-container *ngIf="selectedCategory == products.categoryID">
-      <img [src]="products.img" alt="image" class="product-img" />
-      <p>{{ products.name }}</p>
-      <p>{{ products.quantity }}</p>
-      <p>{{ products.price | currency: "USD" }}</p>
-      <p>{{ products.categoryID }}</p>
-      <ng-container [ngSwitch]="products.quantity">
-        <div *ngSwitchCase="0">Out of stock</div>
-        <div *ngSwitchCase="1"><strong>Last item!</strong></div>
-      </ng-container>
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="buyProduct(products.id)"
-        [disabled]="products.quantity == 0"
-      >
-        Buy
-      </button>
+    <img [src]="products.img" alt="image" class="product-img" />
+    <p>{{ products.name }}</p>
+    <p>Quantity: {{ products.quantity }}</p>
+    <p>{{ products.price | currency: "USD" }}</p>
+    <p>{{ products.categoryID }}</p>
+    <ng-container [ngSwitch]="products.quantity">
+      <div *ngSwitchCase="0">Out of stock</div>
+      <div *ngSwitchCase="1"><strong>Last item!</strong></div>
     </ng-container>
+    <button
+      type="button"
+      class="btn btn-secondary buy-btn"
+      (click)="buyProduct(products.id)"
+      [disabled]="products.quantity == 0"
+    >
+      Buy
+    </button>
   </div>
 </div>
 
@@ -59,7 +57,7 @@ Purchase Date: {{ purchaseDate | date: "mediumDate" }}
 
 <h3>Credit Card: {{ 1000000000000000 | creditCard }}</h3>
 
-<h3 *ngIf="orderTotalPrice">Total Price: {{ orderTotalPrice }}</h3>
+<!-- <h3 *ngIf="orderTotalPrice">Total Price: {{ orderTotalPrice }}</h3> -->
 
 <button type="button" class="btn btn-primary" (click)="hideTable()">Buy</button>
 

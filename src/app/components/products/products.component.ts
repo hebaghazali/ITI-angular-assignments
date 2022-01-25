@@ -34,65 +34,75 @@ export class ProductsComponent {
 
     this.ProductList = [
       {
-        id: 1,
-        name: 't-shirt',
-        quantity: 20,
-        price: 200,
-        img: 'https://fakeimg.pl/250x100/',
+        id: 874,
+        name: 'Apple Mac Mini ',
+        quantity: 3,
+        price: 1050,
+        img: 'https://m.media-amazon.com/images/I/71pcTYT+ICL._AC_SL1500_.jpg',
         categoryID: 22,
       },
       {
-        id: 2,
-        name: 'ringer t-shirt',
-        quantity: 10,
-        price: 150,
-        img: 'https://fakeimg.pl/250x100/',
-        categoryID: 22,
-      },
-      {
-        id: 20,
-        name: 'pocket t-shirt',
-        quantity: 2,
-        price: 250,
-        img: 'https://fakeimg.pl/250x100/',
-        categoryID: 22,
-      },
-      {
-        id: 3,
-        name: 'jacket',
+        id: 361,
+        name: 'HP ProDesk 600',
         quantity: 1,
-        price: 400,
-        img: 'https://fakeimg.pl/250x100/',
+        price: 240,
+        img: 'https://m.media-amazon.com/images/I/51rzf0w1I+S._AC_SL1144_.jpg',
+        categoryID: 22,
+      },
+      {
+        id: 516,
+        name: 'DELL VOSTRO',
+        quantity: 2,
+        price: 800,
+        img: 'https://m.media-amazon.com/images/I/91zKmiPmArS._AC_SL1500_.jpg',
         categoryID: 30,
       },
       {
-        id: 4,
-        name: 'coat',
-        quantity: 25,
-        price: 500,
-        img: 'https://fakeimg.pl/250x100/',
+        id: 485,
+        name: 'HP 250',
+        quantity: 4,
+        price: 750,
+        img: 'https://m.media-amazon.com/images/I/41HVQUl59YS._AC_.jpg',
         categoryID: 30,
       },
       {
-        id: 5,
-        name: 'overcoat',
+        id: 545,
+        name: 'HP 15-dy2091wm',
         quantity: 0,
         price: 500,
-        img: 'https://fakeimg.pl/250x100/',
+        img: 'https://m.media-amazon.com/images/I/414RM5sSaAL._AC_.jpg',
+        categoryID: 30,
+      },
+      {
+        id: 203,
+        name: 'Dell Inspiron 7506',
+        quantity: 1,
+        price: 500,
+        img: 'https://m.media-amazon.com/images/I/61hT2GQ93aL._AC_SL1200_.jpg',
         categoryID: 30,
       },
     ];
 
     this.Categories = [
-      { id: 30, name: 'jackets' },
-      { id: 22, name: 'shirts' },
+      { id: 0, name: 'All' },
+      { id: 22, name: 'Desktops' },
+      { id: 30, name: 'Laptops' },
     ];
 
     this.isPurchased = false;
 
-    this.selectedCategory = 22;
+    this.selectedCategory = 0;
 
     this.purchaseDate = new Date();
+  }
+
+  getProductList(selectedID: number) {
+    if (Number(selectedID) === 0) {
+      return this.ProductList;
+    }
+    return this.ProductList.filter(
+      (product) => product.categoryID === Number(selectedID)
+    );
   }
 
   hideTable() {
