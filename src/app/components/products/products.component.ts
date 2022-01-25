@@ -104,12 +104,12 @@ export class ProductsComponent {
     this.purchaseDate = new Date();
   }
 
-  getProductList(selectedID: number) {
-    if (Number(selectedID) === 0) {
+  getProductList() {
+    if (Number(this.selectedCategory) === 0) {
       return this.ProductList;
     }
     return this.ProductList.filter(
-      (product) => product.categoryID === Number(selectedID)
+      (product) => product.categoryID === Number(this.selectedCategory)
     );
   }
 

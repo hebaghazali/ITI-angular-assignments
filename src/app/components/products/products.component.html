@@ -23,7 +23,7 @@
 Purchase Date: {{ purchaseDate | date: "mediumDate" }}
 <div *ngIf="!isPurchased; else showPurchaseThanks" class="products-container">
   <div
-    *ngFor="let products of getProductList(selectedCategory)"
+    *ngFor="let products of getProductList()"
     [ngStyle]="{
       backgroundColor: products.quantity == 1 ? '#fcf050' : 'initial'
     }"
