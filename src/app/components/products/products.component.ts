@@ -50,6 +50,14 @@ export class ProductsComponent {
         categoryID: 22,
       },
       {
+        id: 362,
+        name: 'ADMI Gaming PC',
+        quantity: 5,
+        price: 875,
+        img: 'https://m.media-amazon.com/images/I/61sdqtqp0PL._AC_SL1000_.jpg',
+        categoryID: 22,
+      },
+      {
         id: 516,
         name: 'DELL VOSTRO',
         quantity: 2,
