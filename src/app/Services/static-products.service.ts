@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IProduct } from 'src/app/ViewModels/iproduct';
+import { IProduct } from '../ViewModels/iproduct';
 
 @Injectable({
   providedIn: 'root',
@@ -79,7 +79,22 @@ export class StaticProductsService {
     );
   }
 
-  getProductById(pId: number): IProduct | undefined {
-    return this.productList.find((product) => product.id === pId);
+  getProductById(pId: number): IProduct {
+    return this.productList.find((product) => product.id === pId)!;
+  }
+
+  addProduct(product: IProduct) {
+    this.productList.push(product);
+  }
+
+  editProduct(id: number, name: string, quantity: number, price: number) {
+    const currentProduct = this.getProductById(id);
+    currentProduct.name = name;
+    currentProduct.quantity = quantity;
+    currentProduct.price = price;
+  }
+
+  getProductIDs(): number[] {
+    return this.productList.map((product) => product.id);
   }
 }

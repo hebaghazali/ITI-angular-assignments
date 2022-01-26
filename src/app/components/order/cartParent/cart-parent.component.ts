@@ -47,7 +47,7 @@ export class CartParentComponent implements AfterViewInit {
       (cart) => cart.id !== id
     );
 
-    this.productListObj.ProductList.forEach((product) => {
+    this.productListObj.productList.forEach((product) => {
       if (product.id === id) {
         this.orderTotalPrice -= product.price;
       }
@@ -55,7 +55,7 @@ export class CartParentComponent implements AfterViewInit {
   }
 
   placeOrder() {
-    this.productListObj.ProductList.forEach((product) => {
+    this.productListObj.productList.forEach((product) => {
       this.cartProductList.forEach((productCart) => {
         if (productCart.id === product.id) {
           product.quantity -= productCart.count;

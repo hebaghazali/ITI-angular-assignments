@@ -1,0 +1,91 @@
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
+  </div>
+  <input
+    #pid
+    type="text"
+    class="form-control"
+    aria-label="Default"
+    aria-describedby="inputGroup-sizing-default"
+  />
+</div>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
+  </div>
+  <input
+    #pname
+    type="text"
+    class="form-control"
+    aria-label="Default"
+    aria-describedby="inputGroup-sizing-default"
+  />
+</div>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default"
+      >Quantity</span
+    >
+  </div>
+  <input
+    #pquantity
+    type="number"
+    class="form-control"
+    aria-label="Default"
+    aria-describedby="inputGroup-sizing-default"
+  />
+</div>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default">Price</span>
+  </div>
+  <input
+    #pprice
+    type="number"
+    class="form-control"
+    aria-label="Default"
+    aria-describedby="inputGroup-sizing-default"
+  />
+</div>
+<div class="mb-3">
+  <input class="form-control" type="file" id="formFile" #pimage />
+</div>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-default"
+      >Category ID</span
+    >
+  </div>
+  <input
+    #pcategoryid
+    type="number"
+    class="form-control"
+    aria-label="Default"
+    aria-describedby="inputGroup-sizing-default"
+  />
+</div>
+
+<button
+  type="button"
+  class="btn btn-success"
+  (click)="
+    addProduct(
+      pid.value,
+      pname.value,
+      pquantity.value,
+      pprice.value,
+      pcategoryid.value
+    )
+  "
+  [routerLink]="['/products']"
+>
+  Add Product
+</button>
+<button
+  type="button"
+  class="btn btn-outline-secondary ms-2"
+  [routerLink]="['/products']"
+>
+  Back to products
+</button>

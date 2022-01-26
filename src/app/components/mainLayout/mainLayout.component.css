@@ -1,0 +1,7 @@
+.sidebar {
+  flex-basis: 20%;
+}
+
+.products {
+  flex-basis: 80%;
+}

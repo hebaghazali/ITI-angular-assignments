@@ -16,6 +16,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProductCardDirective } from './Directives/product-card.directive';
 import { EGPNationalIDPipe } from './Pipes/egpnational-id.pipe';
 import { CreditCardPipe } from './Pipes/credit-card.pipe';
+import { HomeComponent } from './components/home/home.component';
+import { NotFoundComponent } from './components/notFound/notFound.component';
+import { MainLayoutComponent } from './components/mainLayout/mainLayout.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ProductEditComponent } from './components/product-edit/product-edit.component';
+import { ProductAddComponent } from './components/product-add/product-add.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +31,15 @@ import { CreditCardPipe } from './Pipes/credit-card.pipe';
     CartChildComponent,
     CartParentComponent,
     SideMenuComponent,
+    HomeComponent,
+    NotFoundComponent,
+    MainLayoutComponent,
     ProductCardDirective,
     EGPNationalIDPipe,
     CreditCardPipe,
+    ProductDetailsComponent,
+    ProductEditComponent,
+    ProductAddComponent,
   ],
   imports: [
     BrowserModule,

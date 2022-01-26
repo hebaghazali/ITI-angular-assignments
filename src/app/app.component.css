@@ -2,15 +2,14 @@
   min-height: 60vh;
 }
 .main side-menu {
-  flex-basis: 20%;
+  /* flex-basis: 10%; */
   border: 1px solid #000;
 }
 .main app-cart-parent {
-  flex-basis: 80%;
+  /* flex-basis: 85%; */
   border: 1px solid #000;
 }
 .main > * {
   display: flex;
   justify-content: center;
-  align-items: center;
 }
