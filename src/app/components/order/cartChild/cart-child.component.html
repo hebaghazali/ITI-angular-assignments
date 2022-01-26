@@ -1,116 +1,72 @@
-Purchase Date: {{ purchaseDate | date: "mediumDate" }}
-<div *ngIf="!isPurchased" class="products-container">
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">id</th>
-        <th scope="col">name</th>
-        <th scope="col">quantity</th>
-        <th scope="col">price</th>
-        <th scope="col">categoryID</th>
-        <th scope="col">image</th>
-        <th></th>
-        <th scope="col">#items</th>
-        <th scope="col">Details</th>
-        <th>Edit product</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let product of productList"
-        [ngStyle]="{
-          backgroundColor:
-            product.quantity == 1
-              ? '#60f0dd'
-              : product.quantity == 0
-              ? '#ec5c5c'
-              : 'initial'
-        }"
+<button type="button" class="btn btn-primary" [routerLink]="['/add-product']">
+  Add a new product
+</button>
+
+<div class="products-container">
+  <div
+    *ngFor="let product of productList"
+    [ngStyle]="{
+      backgroundColor:
+        product.quantity == 0
+          ? '#ec5c5c'
+          : product.quantity == 1
+          ? '#60f0e9'
+          : 'initial'
+    }"
+    ProductCard
+    BGColor="#ac9597"
+  >
+    <img [src]="product.img" alt="image" class="product-img" />
+    <p>{{ product.name }}</p>
+    <p>Quantity: {{ product.quantity }}</p>
+    <p>{{ product.price | currency: "USD" }}</p>
+    <p>{{ product.categoryID }}</p>
+    <ng-container [ngSwitch]="product.quantity">
+      <div *ngSwitchCase="0">Out of stock</div>
+      <div *ngSwitchCase="1"><strong>Last item!</strong></div>
+    </ng-container>
+    <input
+      #count
+      type="number"
+      min="0"
+      [max]="product.quantity"
+      class="form-control"
+      (change)="
+        selectQuantity(
+          $event,
+          product.id,
+          product.name,
+          product.price,
+          product.quantity
+        )
+      "
+    />
+    <div class="btn-group mt-3">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        [routerLink]="['/products', product.id]"
       >
-        <th scope="row">{{ product.id }}</th>
-        <td>{{ product.name }}</td>
-        <td>{{ product.quantity }}</td>
-        <td>{{ product.price | currency: "USD" }}</td>
-        <td>{{ product.categoryID }}</td>
-        <td>
-          <img
-            ProductCard
-            BGColor="#ac9597"
-            [src]="product.img"
-            alt="image"
-            class="product-img w-100"
-            [ngStyle]="{ backgroundColor: '#fff' }"
-          />
-        </td>
-        <td>
-          <ng-container [ngSwitch]="product.quantity">
-            <div *ngSwitchCase="0">Out of stock</div>
-            <div *ngSwitchCase="1"><strong>Last item!</strong></div>
-          </ng-container>
-        </td>
-        <td>
-          <input
-            #count
-            type="number"
-            min="0"
-            [max]="product.quantity"
-            class="form-control"
-            (change)="
-              selectQuantity(
-                $event,
-                product.id,
-                product.name,
-                product.price,
-                product.quantity
-              )
-            "
-          />
-        </td>
-        <td>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            [routerLink]="['/products', product.id]"
-          >
-            Details
-          </button>
-        </td>
-        <td>
-          <button
-            type="button"
-            class="btn btn-info"
-            [routerLink]="['/edit-product', product.id]"
-            (click)="
-              editProduct(
-                product.id,
-                product.name,
-                product.quantity,
-                product.price
-              )
-            "
-          >
-            Edit
-          </button>
-        </td>
-        <td>
-          <button type="button" class="btn btn-secondary" (click)="addToCart()">
-            Add to cart
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <button type="button" class="btn btn-primary" [routerLink]="['/add-product']">
-    Add a new product
-  </button>
+        Details
+      </button>
+      <button
+        type="button"
+        class="btn btn-info"
+        [routerLink]="['/edit-product', product.id]"
+        (click)="
+          editProduct(product.id, product.name, product.quantity, product.price)
+        "
+      >
+        Edit
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary buy-btn"
+        (click)="addToCart()"
+        [disabled]="product.quantity == 0"
+      >
+        Add to cart
+      </button>
+    </div>
+  </div>
 </div>
-
-<!-- <h3>
-  National ID Date: {{ 29909011509345 | EGPNationalID | date: "longDate" }}
-</h3>
-
-<h3>Credit Card: {{ 1000000000000000 | creditCard }}</h3>
-
-<button type="button" class="btn btn-primary" (click)="hideTable()">Buy</button> -->
-
-<!-- <h3 *ngIf="orderTotalPrice">Total Price: {{ orderTotalPrice }}</h3> -->
