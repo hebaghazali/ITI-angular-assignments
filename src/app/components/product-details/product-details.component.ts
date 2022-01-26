@@ -7,7 +7,7 @@ import { IProduct } from './../../ViewModels/iproduct';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css'],
+  styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit {
   currentProductID!: number;

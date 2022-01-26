@@ -5,7 +5,7 @@ import { IProduct } from './../../ViewModels/iproduct';
 @Component({
   selector: 'app-product-add',
   templateUrl: './product-add.component.html',
-  styleUrls: ['./product-add.component.css'],
+  styleUrls: ['./product-add.component.scss'],
 })
 export class ProductAddComponent {
   constructor(private productsService: StaticProductsService) {}

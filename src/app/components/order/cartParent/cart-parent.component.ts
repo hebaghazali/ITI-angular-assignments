@@ -7,7 +7,7 @@ import { CartChildComponent } from './../cartChild/cart-child.component';
 @Component({
   selector: 'app-cart-parent',
   templateUrl: './cart-parent.component.html',
-  styleUrls: ['./cart-parent.component.css'],
+  styleUrls: ['./cart-parent.component.scss'],
 })
 export class CartParentComponent implements AfterViewInit {
   Categories: ICategory[];

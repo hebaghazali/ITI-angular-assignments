@@ -9,12 +9,11 @@ import {
 import { IProduct } from '../../../ViewModels/iproduct';
 import { CartVM } from '../../../ViewModels/cart';
 import { StaticProductsService } from './../../../Services/static-products.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-child',
   templateUrl: './cart-child.component.html',
-  styleUrls: ['./cart-child.component.css'],
+  styleUrls: ['./cart-child.component.scss'],
 })
 export class CartChildComponent implements OnInit, OnChanges {
   productList: IProduct[] = [];

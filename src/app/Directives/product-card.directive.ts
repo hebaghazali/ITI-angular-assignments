@@ -19,14 +19,17 @@ export class ProductCardDirective implements OnChanges {
   }
 
   ngOnChanges(): void {
-    this.elemRef.nativeElement.style.boxShadow = `1px 1px 5px 2px ${this.BGColor}`;
+    this.elemRef.nativeElement.style.boxShadow = `1px 1px 4px 2px ${this.BGColor}`;
+    this.elemRef.nativeElement.style.transition = 'transform 800ms';
   }
 
   @HostListener('mouseover') onMouseOver() {
-    this.elemRef.nativeElement.style.boxShadow = '3px 3px 5px 3px #be92a1';
+    this.elemRef.nativeElement.style.boxShadow = '3px 3px 6px 3.5px #c0c0c0';
+    this.elemRef.nativeElement.style.transform = 'scale(1.03)';
   }
 
   @HostListener('mouseout') onMouseOut() {
-    this.elemRef.nativeElement.style.boxShadow = `1px 1px 5px 2px ${this.BGColor}`;
+    this.elemRef.nativeElement.style.boxShadow = `1px 1px 4px 2px ${this.BGColor}`;
+    this.elemRef.nativeElement.style.transform = 'scale(1)';
   }
 }
