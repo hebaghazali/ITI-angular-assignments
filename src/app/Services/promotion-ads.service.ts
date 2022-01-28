@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,7 @@ export class PromotionAdsService {
     this.ads = [
       'Big Discounts',
       'Sale up to 50%',
-      '',
+      // '',
       'Check our black friday offers',
       'Special black friday offers up to 80%',
     ];
@@ -26,6 +26,19 @@ export class PromotionAdsService {
 
         observer.next(this.ads[counter++]);
       }, intervalInSec * 1000);
+      console.log('Subscribed! :)');
+
+      return {
+        unsubscribe() {
+          clearInterval(adsTimer);
+          console.log('Unsubscribed!');
+        },
+      };
     });
+  }
+
+  getSerialAds(): Observable<string> {
+    // return of(...this.ads);
+    return from(this.ads);
   }
 }

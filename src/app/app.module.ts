@@ -19,9 +19,10 @@ import { CreditCardPipe } from './Pipes/credit-card.pipe';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
 import { MainLayoutComponent } from './components/mainLayout/mainLayout.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { ProductEditComponent } from './components/product-edit/product-edit.component';
-import { ProductAddComponent } from './components/product-add/product-add.component';
+import { ProductDetailsComponent } from './components/order/product-details/product-details.component';
+import { ProductEditComponent } from './components/order/product-edit/product-edit.component';
+import { ProductAddComponent } from './components/order/product-add/product-add.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ProductAddComponent } from './components/product-add/product-add.compon
     ProductDetailsComponent,
     ProductEditComponent,
     ProductAddComponent,
+    LogoutComponent,
   ],
   imports: [
     BrowserModule,

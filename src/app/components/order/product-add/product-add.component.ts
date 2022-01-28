@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { StaticProductsService } from './../../Services/static-products.service';
-import { IProduct } from './../../ViewModels/iproduct';
+import { StaticProductsService } from './../../../Services/static-products.service';
+import { IProduct } from './../../../ViewModels/iproduct';
 
 @Component({
   selector: 'app-product-add',

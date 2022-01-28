@@ -6,9 +6,10 @@ import { MainLayoutComponent } from './components/mainLayout/mainLayout.componen
 import { NotFoundComponent } from './components/notFound/notFound.component';
 import { CartChildComponent } from './components/order/cartChild/cart-child.component';
 import { CartParentComponent } from './components/order/cartParent/cart-parent.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { ProductAddComponent } from './components/product-add/product-add.component';
-import { ProductEditComponent } from './components/product-edit/product-edit.component';
+import { ProductDetailsComponent } from './components/order/product-details/product-details.component';
+import { ProductAddComponent } from './components/order/product-add/product-add.component';
+import { ProductEditComponent } from './components/order/product-edit/product-edit.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -19,12 +20,17 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'products', component: CartChildComponent },
       { path: 'products/:pid', component: ProductDetailsComponent },
-      { path: 'orders', component: CartParentComponent },
+      {
+        path: 'orders',
+        component: CartParentComponent,
+        canActivate: [AuthGuard],
+      },
       { path: 'add-product', component: ProductAddComponent },
       { path: 'edit-product/:pid', component: ProductEditComponent },
     ],
   },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LoginComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

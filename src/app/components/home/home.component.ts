@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Store } from '../../ViewModels/store';
 import { DiscountOffers } from 'src/app/ViewModels/discount-offers';
-import { PromotionAdsService } from './../../promotion-ads.service';
+import { PromotionAdsService } from '../../Services/promotion-ads.service';
+import { filter, map, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   discount: DiscountOffers;
   clientName: string;
   store: Store;
+  private subscriptions: Subscription[] = [];
 
   constructor(private promotionAds: PromotionAdsService) {
     this.store = new Store(
@@ -24,6 +26,10 @@ export class HomeComponent implements OnInit {
     this.clientName = 'Heba';
 
     this.discount = DiscountOffers['15%'];
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   ngOnInit() {
@@ -39,6 +45,16 @@ export class HomeComponent implements OnInit {
       },
     };
 
-    this.promotionAds.getScheduledAds(2).subscribe(observer);
+    // const adsSub = this.promotionAds.getScheduledAds(2).subscribe(observer);
+    // const adsSub = this.promotionAds.getSerialAds().subscribe(observer);
+
+    const filteredObservable = this.promotionAds.getScheduledAds(2).pipe(
+      filter((ad) => ad.includes('black friday')),
+      map((ad) => `Ad: ${ad}`)
+    );
+
+    const adsSub = filteredObservable.subscribe(observer);
+
+    this.subscriptions.push(adsSub);
   }
 }

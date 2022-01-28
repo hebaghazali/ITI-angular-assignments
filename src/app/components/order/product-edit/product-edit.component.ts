@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { StaticProductsService } from './../../Services/static-products.service';
+import { StaticProductsService } from './../../../Services/static-products.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
