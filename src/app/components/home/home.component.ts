@@ -16,6 +16,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   store: Store;
   private subscriptions: Subscription[] = [];
 
+  ad: string = '';
+
   constructor(private promotionAds: PromotionAdsService) {
     this.store = new Store(
       'ITI',
@@ -35,13 +37,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const observer = {
       next: (data: string) => {
-        console.log(data);
+        // console.log(data);
+        this.ad = data;
       },
       error: (err: string) => {
         console.log(err);
       },
       complete: () => {
-        console.log('Ads complete!');
+        // console.log('Ads complete!');
       },
     };
 
@@ -49,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     // const adsSub = this.promotionAds.getSerialAds().subscribe(observer);
 
     const filteredObservable = this.promotionAds.getScheduledAds(2).pipe(
-      filter((ad) => ad.includes('black friday')),
+      // filter((ad) => ad.includes('black friday')),
       map((ad) => `Ad: ${ad}`)
     );
 

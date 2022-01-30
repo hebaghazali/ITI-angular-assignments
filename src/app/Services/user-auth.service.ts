@@ -7,6 +7,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class UserAuthService {
   private isLoggedSubject: BehaviorSubject<boolean>;
 
+  username: string = '';
+  password: string = '';
+
   constructor() {
     this.isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
   }
@@ -14,12 +17,19 @@ export class UserAuthService {
   login(username: string, password: string) {
     const token = 'yefrsd253csx';
     localStorage.setItem('token', token);
+
+    this.username = username;
+    this.password = password;
+
     this.isLoggedSubject.next(true);
   }
 
   logout() {
     localStorage.removeItem('token');
     this.isLoggedSubject.next(false);
+
+    this.username = '';
+    this.password = '';
   }
 
   get isLogged(): boolean {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserAuthService } from './../../Services/user-auth.service';
 
 @Component({
@@ -9,19 +10,21 @@ import { UserAuthService } from './../../Services/user-auth.service';
 export class LoginComponent implements OnInit {
   isLogged: boolean = false;
 
-  constructor(private authServ: UserAuthService) {}
+  constructor(private authServ: UserAuthService, private router: Router) {}
 
   ngOnInit() {
     this.isLogged = this.authServ.isLogged;
   }
 
-  login() {
-    this.authServ.login('username', 'password');
+  login(username: string, password: string) {
+    this.authServ.login(username, password);
     this.isLogged = this.authServ.isLogged;
-  }
 
-  logout() {
-    this.authServ.logout();
-    this.isLogged = this.authServ.isLogged;
+    if (localStorage.getItem('routeURL')) {
+      this.router.navigate([`${localStorage.getItem('routeURL')}`]);
+      localStorage.removeItem('routeURL');
+    } else {
+      this.router.navigate(['/home']);
+    }
   }
 }

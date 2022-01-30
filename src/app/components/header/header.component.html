@@ -12,7 +12,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav d-flex align-items-center">
       <li class="nav-item">
         <a class="nav-link" routerLink="/home" routerLinkActive="active"
           >Home</a
@@ -28,23 +28,69 @@
           >Orders</a
         >
       </li>
+    </ul>
+    <ul class="navbar-nav d-flex align-items-center justify-content-end w-100">
       <li class="nav-item">
         <a
           class="nav-link"
           routerLink="/login"
           routerLinkActive="active"
-          [hidden]="!isLogged"
+          [hidden]="isLogged"
           >Login</a
         >
       </li>
+      <li class="nav-item" [hidden]="!username">Welcome, {{ username }}</li>
       <li class="nav-item">
+        <!-- Button trigger modal -->
         <a
           class="nav-link"
-          routerLink="/logout"
+          routerLink="/home"
           routerLinkActive="active"
-          [hidden]="isLogged"
-          >Logout</a
+          [hidden]="!isLogged"
+          data-toggle="modal"
+          data-target="#exampleModal"
         >
+          Logout
+        </a>
+        <i class="fas fa-sign-out-alt"></i>
+
+        <!-- Modal -->
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          role="dialog"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+              </div>
+              <div class="modal-body">Are you sure you want to log out?</div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-dismiss="modal"
+                  routerLink="/home"
+                  routerLinkActive="active"
+                >
+                  No
+                </button>
+                <button
+                  type="button"
+                  data-dismiss="modal"
+                  class="btn btn-primary"
+                  (click)="confirmLogout()"
+                >
+                  Yes
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </li>
     </ul>
   </div>

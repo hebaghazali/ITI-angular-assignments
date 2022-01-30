@@ -10,9 +10,8 @@ export class PromotionAdsService {
   constructor() {
     this.ads = [
       'Big Discounts',
-      'Sale up to 50%',
-      // '',
       'Check our black friday offers',
+      'Sale up to 50%',
       'Special black friday offers up to 80%',
     ];
   }
@@ -26,19 +25,18 @@ export class PromotionAdsService {
 
         observer.next(this.ads[counter++]);
       }, intervalInSec * 1000);
-      console.log('Subscribed! :)');
+      // console.log('Subscribed! :)');
 
       return {
         unsubscribe() {
           clearInterval(adsTimer);
-          console.log('Unsubscribed!');
+          // console.log('Unsubscribed!');
         },
       };
     });
   }
 
   getSerialAds(): Observable<string> {
-    // return of(...this.ads);
     return from(this.ads);
   }
 }
