@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
         localStorage.setItem('username', this.username);
       } else {
         this.username = '';
-        localStorage.setItem('username', '');
+        localStorage.removeItem('username');
       }
     });
   }
