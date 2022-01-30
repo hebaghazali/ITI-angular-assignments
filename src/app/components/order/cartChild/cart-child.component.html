@@ -4,7 +4,7 @@
 
 <div class="products-container">
   <div
-    *ngFor="let product of productList"
+    *ngFor="let product of productListByCat"
     [ngStyle]="{
       backgroundColor:
         product.quantity == 0
@@ -16,11 +16,13 @@
     ProductCard
     BGColor="#afafaf"
   >
-    <img [src]="product.img" alt="image" class="product-img" />
-    <p>{{ product.name }}</p>
+    <img [src]="product.image" alt="image" class="product-img" />
+    <p style="text-align: center; margin: 0.2rem auto">
+      <strong>{{ product.title }}</strong>
+    </p>
     <p>Quantity: {{ product.quantity }}</p>
     <p>{{ product.price | currency: "USD" }}</p>
-    <p>{{ product.categoryID }}</p>
+    <p>{{ product["category-id"] }}</p>
     <ng-container [ngSwitch]="product.quantity">
       <div *ngSwitchCase="0">Out of stock</div>
       <div *ngSwitchCase="1"><strong>Last item!</strong></div>
@@ -35,7 +37,7 @@
         selectQuantity(
           $event,
           product.id,
-          product.name,
+          product.title,
           product.price,
           product.quantity
         )
@@ -54,7 +56,12 @@
         class="btn btn-info"
         [routerLink]="['/edit-product', product.id]"
         (click)="
-          editProduct(product.id, product.name, product.quantity, product.price)
+          editProduct(
+            product.id,
+            product.title,
+            product.quantity,
+            product.price
+          )
         "
       >
         Edit

@@ -29,7 +29,7 @@ export class ProductEditComponent implements OnInit {
     const currentProduct = this.productsService.getProductById(
       this.currentProductID
     );
-    this.pName.nativeElement.value = currentProduct.name;
+    this.pName.nativeElement.value = currentProduct.title;
     this.pQuantity.nativeElement.value = currentProduct.quantity;
     this.pPrice.nativeElement.value = currentProduct.price;
     console.log(this.pName.nativeElement);

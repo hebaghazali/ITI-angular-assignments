@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { ProductsService } from 'src/app/Services/products.service';
 
 import { ICategory } from '../../../ViewModels/icategory';
 import { CartVM } from './../../../ViewModels/cart';
@@ -10,7 +11,7 @@ import { CartChildComponent } from './../cartChild/cart-child.component';
   styleUrls: ['./cart-parent.component.scss'],
 })
 export class CartParentComponent implements AfterViewInit {
-  Categories: ICategory[];
+  Categories: ICategory[] = [];
   selectedCategory: number = 0;
   orderTotalPrice: number = 0;
   cartProductList: CartVM[] = [];
@@ -18,12 +19,16 @@ export class CartParentComponent implements AfterViewInit {
   @ViewChild(CartChildComponent) productListObj!: CartChildComponent;
   @ViewChild('upperCase') upperCaseElem!: ElementRef;
 
-  constructor() {
-    this.Categories = [
-      { id: 0, name: 'All' },
-      { id: 22, name: 'Desktops' },
-      { id: 30, name: 'Laptops' },
-    ];
+  constructor(private productsService: ProductsService) {
+    // this.Categories = [
+    //   { id: 0, name: 'All' },
+    //   { id: 22, name: 'Desktops' },
+    //   { id: 30, name: 'Laptops' },
+    // ];
+
+    this.productsService.getCategories().subscribe((categories) => {
+      this.Categories = categories;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -47,7 +52,7 @@ export class CartParentComponent implements AfterViewInit {
       (cart) => cart.id !== id
     );
 
-    this.productListObj.productList.forEach((product) => {
+    this.productListObj.productListByCat.forEach((product) => {
       if (product.id === id) {
         this.orderTotalPrice -= product.price;
       }
@@ -55,7 +60,7 @@ export class CartParentComponent implements AfterViewInit {
   }
 
   placeOrder() {
-    this.productListObj.productList.forEach((product) => {
+    this.productListObj.productListByCat.forEach((product) => {
       this.cartProductList.forEach((productCart) => {
         if (productCart.id === product.id) {
           product.quantity -= productCart.count;

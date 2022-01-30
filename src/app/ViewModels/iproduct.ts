@@ -1,8 +1,21 @@
+// export interface IProduct {
+//   id: number;
+//   name: string;
+//   quantity: number;
+//   price: number;
+//   img?: string;
+//   categoryID: number;
+// }
 export interface IProduct {
   id: number;
-  name: string;
+  title: string;
   quantity: number;
   price: number;
-  img?: string;
-  categoryID: number;
+  description?: string;
+  'category-id': number;
+  image?: string;
+  rating?: {
+    rating: number;
+    count: number;
+  };
 }

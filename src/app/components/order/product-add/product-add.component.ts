@@ -12,17 +12,17 @@ export class ProductAddComponent {
 
   addProduct(
     id: string,
-    name: string,
+    title: string,
     quantity: string,
     price: string,
     catid: string
   ) {
     let newProduct: IProduct = {
       id: +id,
-      name: name,
+      title: title,
       quantity: +quantity,
       price: +price,
-      categoryID: +catid,
+      ['category-id']: +catid,
     };
 
     this.productsService.addProduct(newProduct);

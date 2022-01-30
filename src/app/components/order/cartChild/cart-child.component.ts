@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { IProduct } from '../../../ViewModels/iproduct';
 import { CartVM } from '../../../ViewModels/cart';
-import { StaticProductsService } from './../../../Services/static-products.service';
+import { ProductsService } from './../../../Services/products.service';
 
 @Component({
   selector: 'app-cart-child',
@@ -16,7 +16,7 @@ import { StaticProductsService } from './../../../Services/static-products.servi
   styleUrls: ['./cart-child.component.scss'],
 })
 export class CartChildComponent implements OnInit, OnChanges {
-  productList: IProduct[] = [];
+  productListByCat: IProduct[] = [];
   isPurchased: boolean;
   purchaseDate: Date;
 
@@ -25,7 +25,7 @@ export class CartChildComponent implements OnInit, OnChanges {
   @Output() cartChanged: EventEmitter<CartVM>;
   cartOutput?: CartVM;
 
-  constructor(private staticProductService: StaticProductsService) {
+  constructor(private productService: ProductsService) {
     this.cartChanged = new EventEmitter<CartVM>();
 
     this.isPurchased = false;
@@ -36,13 +36,21 @@ export class CartChildComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.productList = this.staticProductService.getProductsByCatId(
-      this.selectedCategoryInput
-    );
+    // this.productListByCat = this.ProductService.getProductsByCatId(
+    //   this.selectedCategoryInput
+    // );
+    this.productService
+      .getProductsByCatId(this.selectedCategoryInput)
+      .subscribe((products) => {
+        this.productListByCat = products;
+      });
   }
 
   ngOnInit(): void {
-    this.productList = this.staticProductService.getProducts();
+    // this.productListByCat = this.productService.getProducts();
+    this.productService.getProducts().subscribe((products) => {
+      this.productListByCat = products;
+    });
   }
 
   hideTable() {
@@ -52,11 +60,11 @@ export class CartChildComponent implements OnInit, OnChanges {
   count: number = 0;
 
   addToCart() {
-    this.cartChanged.emit(this.cartOutput);
+    // this.cartChanged.emit(this.cartOutput);
   }
 
   editProduct(id: number, name: string, quantity: number, price: number) {
-    this.staticProductService.editProduct(id, name, quantity, price);
+    // this.ProductService.editProduct(id, name, quantity, price);
   }
 
   selectQuantity(
