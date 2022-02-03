@@ -100,7 +100,7 @@ export class StaticProductsService {
     currentProduct.price = price;
   }
 
-  getProductIDs(): number[] {
-    return this.productList.map((product) => product.id);
-  }
+  // getProductIDs(): number[] {
+  //   return this.productList.map((product) => product.id);
+  // }
 }

@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StaticProductsService } from './../../../Services/static-products.service';
+import { ProductsService } from './../../../Services/products.service';
 import { IProduct } from './../../../ViewModels/iproduct';
 
 @Component({
@@ -12,21 +12,27 @@ import { IProduct } from './../../../ViewModels/iproduct';
 export class ProductDetailsComponent implements OnInit {
   currentProductID!: number;
   product: IProduct | undefined = undefined;
-  productIDs!: number[];
+  productIDs: number[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private productsService: StaticProductsService,
+    private productsService: ProductsService,
     private location: Location,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.productIDs = this.productsService.getProductIDs();
+    this.productsService.getProductIDs().then((ids) => {
+      this.productIDs = ids;
+    });
 
     this.activatedRoute.paramMap.subscribe((param) => {
       this.currentProductID = Number(param.get('pid'));
-      this.product = this.productsService.getProductById(this.currentProductID);
+      this.productsService
+        .getProductById(this.currentProductID)
+        .subscribe((product) => {
+          this.product = product;
+        });
     });
   }
 

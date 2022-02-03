@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { StaticProductsService } from './../../../Services/static-products.service';
-import { ActivatedRoute } from '@angular/router';
+import { ProductsService } from './../../../Services/products.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { IProduct } from 'src/app/ViewModels/iproduct';
 
 @Component({
   selector: 'app-product-edit',
@@ -10,13 +11,12 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductEditComponent implements OnInit {
   currentProductID!: number;
 
-  @ViewChild('pname') pName!: ElementRef;
-  @ViewChild('pquantity') pQuantity!: ElementRef;
-  @ViewChild('pprice') pPrice!: ElementRef;
+  product: IProduct = {} as IProduct;
 
   constructor(
-    private productsService: StaticProductsService,
-    private activatedRoute: ActivatedRoute
+    private productsService: ProductsService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -29,18 +29,38 @@ export class ProductEditComponent implements OnInit {
     const currentProduct = this.productsService.getProductById(
       this.currentProductID
     );
-    this.pName.nativeElement.value = currentProduct.title;
-    this.pQuantity.nativeElement.value = currentProduct.quantity;
-    this.pPrice.nativeElement.value = currentProduct.price;
-    console.log(this.pName.nativeElement);
+    // console.log(currentProduct);
+
+    currentProduct.subscribe((product) => {
+      this.product.id = product.id;
+      this.product.title = product.title;
+      this.product.quantity = product.quantity;
+      this.product.price = product.price;
+      this.product['category-id'] = product['category-id'];
+    });
   }
 
-  editProduct(name: string, quantity: string, price: string) {
-    this.productsService.editProduct(
-      this.currentProductID,
-      name,
-      +quantity,
-      +price
-    );
+  editProduct(product: IProduct) {
+    const productInput: IProduct = {
+      id: product.id,
+      title: product.title,
+      quantity: product.quantity,
+      price: product.price,
+      'category-id': product['category-id'],
+    };
+
+    const productObservable = this.productsService.editProduct(productInput);
+
+    const observer = {
+      next: (prod: IProduct) => {
+        alert('product edited successfully');
+        this.router.navigateByUrl('/products');
+        return prod.id === this.product.id;
+      },
+      error: (err: Error) => alert('Error: ' + err.message),
+      complete: () => {},
+    };
+
+    productObservable.subscribe(observer);
   }
 }

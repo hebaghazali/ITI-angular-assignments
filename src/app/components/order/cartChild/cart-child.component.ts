@@ -9,6 +9,7 @@ import {
 import { IProduct } from '../../../ViewModels/iproduct';
 import { CartVM } from '../../../ViewModels/cart';
 import { ProductsService } from './../../../Services/products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-child',
@@ -17,15 +18,17 @@ import { ProductsService } from './../../../Services/products.service';
 })
 export class CartChildComponent implements OnInit, OnChanges {
   productListByCat: IProduct[] = [];
+
   isPurchased: boolean;
   purchaseDate: Date;
 
   @Input() selectedCategoryInput: number;
   orderTotalPriceOutput: number = 0;
+
   @Output() cartChanged: EventEmitter<CartVM>;
   cartOutput?: CartVM;
 
-  constructor(private productService: ProductsService) {
+  constructor(private productService: ProductsService, private router: Router) {
     this.cartChanged = new EventEmitter<CartVM>();
 
     this.isPurchased = false;
@@ -35,10 +38,13 @@ export class CartChildComponent implements OnInit, OnChanges {
     this.purchaseDate = new Date();
   }
 
+  getProducts = () => {
+    this.productService
+      .getProducts()
+      .subscribe((products) => (this.productListByCat = products));
+  };
+
   ngOnChanges(): void {
-    // this.productListByCat = this.ProductService.getProductsByCatId(
-    //   this.selectedCategoryInput
-    // );
     this.productService
       .getProductsByCatId(this.selectedCategoryInput)
       .subscribe((products) => {
@@ -47,10 +53,7 @@ export class CartChildComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // this.productListByCat = this.productService.getProducts();
-    this.productService.getProducts().subscribe((products) => {
-      this.productListByCat = products;
-    });
+    this.getProducts();
   }
 
   hideTable() {
@@ -60,11 +63,15 @@ export class CartChildComponent implements OnInit, OnChanges {
   count: number = 0;
 
   addToCart() {
-    // this.cartChanged.emit(this.cartOutput);
+    this.cartChanged.emit(this.cartOutput);
   }
 
-  editProduct(id: number, name: string, quantity: number, price: number) {
-    // this.ProductService.editProduct(id, name, quantity, price);
+  deleteProduct(id: number) {
+    this.productService.deleteProduct(id).subscribe(() => {
+      alert('product deleted successfully');
+
+      this.getProducts();
+    });
   }
 
   selectQuantity(

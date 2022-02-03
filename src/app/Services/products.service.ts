@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
+import { catchError, Observable, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { IProduct } from 'src/app/ViewModels/iproduct';
 import { ICategory } from 'src/app/ViewModels/icategory';
@@ -9,7 +13,33 @@ import { ICategory } from 'src/app/ViewModels/icategory';
   providedIn: 'root',
 })
 export class ProductsService {
-  constructor(private httpClient: HttpClient) {}
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
+      );
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error(error.error));
+  }
+
+  httpOption: {
+    headers: HttpHeaders;
+  };
+
+  constructor(private httpClient: HttpClient) {
+    this.httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+  }
 
   getProducts(): Observable<IProduct[]> {
     return this.httpClient.get<IProduct[]>(`${environment.APIURL}/products`);
@@ -28,26 +58,40 @@ export class ProductsService {
   }
 
   getProductById(id: number): Observable<IProduct> {
-    // return this.productList.find((product) => product.id === pId)!;
     return this.httpClient.get<IProduct>(
       `${environment.APIURL}/products/${id}`
     );
   }
 
-  // addProduct(product) {
-  //   this.productList.push(product);
-  // }
+  addProduct(product: IProduct): Observable<IProduct> {
+    return this.httpClient.post<IProduct>(
+      `${environment.APIURL}/products`,
+      JSON.stringify(product),
+      this.httpOption
+    );
+  }
 
-  // updateProduct(id: number, name: string, quantity: number, price: number) {
-  //   const currentProduct = this.getProductById(id);
-  //   currentProduct.name = name;
-  //   currentProduct.quantity = quantity;
-  //   currentProduct.price = price;
-  // }
+  editProduct(product: IProduct) {
+    return this.httpClient.put<IProduct>(
+      `${environment.APIURL}/products/${product.id}`,
+      JSON.stringify(product),
+      this.httpOption
+    );
+  }
 
-  deleteProduct(id: number) {}
+  deleteProduct(id: number): Observable<IProduct> {
+    return this.httpClient.delete<IProduct>(
+      `${environment.APIURL}/products/${id}`,
+      this.httpOption
+    );
+  }
 
-  // getProductIDs(): number[] {
-  //   return this.productList.map((product) => product.id);
-  // }
+  productsIDs: number[] = [];
+  getProductIDs() {
+    return new Promise<number[]>((resolve) => {
+      this.getProducts().subscribe((products) => {
+        resolve(products.map((product) => product.id));
+      });
+    });
+  }
 }

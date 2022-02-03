@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { StaticProductsService } from './../../../Services/static-products.service';
+import { Router } from '@angular/router';
+import { ProductsService } from './../../../Services/products.service';
 import { IProduct } from './../../../ViewModels/iproduct';
 
 @Component({
@@ -8,7 +9,10 @@ import { IProduct } from './../../../ViewModels/iproduct';
   styleUrls: ['./product-add.component.scss'],
 })
 export class ProductAddComponent {
-  constructor(private productsService: StaticProductsService) {}
+  constructor(
+    private productsService: ProductsService,
+    private router: Router
+  ) {}
 
   addProduct(
     id: string,
@@ -17,7 +21,7 @@ export class ProductAddComponent {
     price: string,
     catid: string
   ) {
-    let newProduct: IProduct = {
+    const product: IProduct = {
       id: +id,
       title: title,
       quantity: +quantity,
@@ -25,6 +29,16 @@ export class ProductAddComponent {
       ['category-id']: +catid,
     };
 
-    this.productsService.addProduct(newProduct);
+    const observer = {
+      next: (prod: IProduct) => {
+        alert('product added successfully');
+        this.router.navigateByUrl('/products');
+        return prod.id === product.id;
+      },
+      error: (err: Error) => alert('Error: ' + err),
+      complete: () => {},
+    };
+
+    this.productsService.addProduct(product).subscribe(observer);
   }
 }

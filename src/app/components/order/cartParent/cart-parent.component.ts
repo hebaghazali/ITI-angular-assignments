@@ -20,12 +20,6 @@ export class CartParentComponent implements AfterViewInit {
   @ViewChild('upperCase') upperCaseElem!: ElementRef;
 
   constructor(private productsService: ProductsService) {
-    // this.Categories = [
-    //   { id: 0, name: 'All' },
-    //   { id: 22, name: 'Desktops' },
-    //   { id: 30, name: 'Laptops' },
-    // ];
-
     this.productsService.getCategories().subscribe((categories) => {
       this.Categories = categories;
     });

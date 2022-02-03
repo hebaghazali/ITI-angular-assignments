@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     // const adsSub = this.promotionAds.getSerialAds().subscribe(observer);
 
     const filteredObservable = this.promotionAds.getScheduledAds(2).pipe(
-      // filter((ad) => ad.includes('black friday')),
+      filter((ad) => ad.includes('black friday')),
       map((ad) => `Ad: ${ad}`)
     );
 

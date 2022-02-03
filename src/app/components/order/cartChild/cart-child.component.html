@@ -55,24 +55,23 @@
         type="button"
         class="btn btn-info"
         [routerLink]="['/edit-product', product.id]"
-        (click)="
-          editProduct(
-            product.id,
-            product.title,
-            product.quantity,
-            product.price
-          )
-        "
       >
-        Edit
+        <i class="fas fa-edit"></i>
       </button>
       <button
         type="button"
-        class="btn btn-secondary buy-btn"
+        class="btn btn-success buy-btn"
         (click)="addToCart()"
         [disabled]="product.quantity == 0"
       >
-        Add to cart
+        <i class="fas fa-cart-plus"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-danger buy-btn"
+        (click)="deleteProduct(product.id)"
+      >
+        <i class="fas fa-trash-alt"></i>
       </button>
     </div>
   </div>
