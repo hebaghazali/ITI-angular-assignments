@@ -69,9 +69,9 @@ export class CartChildComponent implements OnInit, OnChanges {
   deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe(() => {
       alert('product deleted successfully');
-
-      this.getProducts();
     });
+
+    this.getProducts();
   }
 
   selectQuantity(
