@@ -58,9 +58,8 @@ export class ProductFormComponent implements OnInit {
 
     const observer = {
       next: (prod: IProduct) => {
-        // alert('product added successfully');
+        this.currentProduct = prod;
         this.router.navigateByUrl('/products');
-        return prod.id === this.currentProduct.id; // this condition makes the view update immediately
       },
       error: (err: Error) => alert('Error: ' + err),
       complete: () => {},
@@ -76,9 +75,8 @@ export class ProductFormComponent implements OnInit {
 
     const observer = {
       next: (prod: IProduct) => {
-        // alert('product edited successfully');
+        this.currentProduct = prod;
         this.router.navigateByUrl('/products');
-        return prod.id === this.currentProduct.id;
       },
       error: (err: Error) => alert('Error: ' + err.message),
       complete: () => {},
@@ -92,9 +90,7 @@ export class ProductFormComponent implements OnInit {
 
     const observer = {
       next: (prod: IProduct) => {
-        // alert('product deleted successfully');
         this.router.navigateByUrl('/products');
-        return prod.id === this.currentProduct.id;
       },
       error: (err: Error) => alert('Error: ' + err.message),
       complete: () => {},

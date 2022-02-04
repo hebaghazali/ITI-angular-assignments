@@ -12,7 +12,6 @@
       class="form-control"
       [(ngModel)]="currentProduct.id"
       [disabled]="!!currentProduct.id"
-      required
     />
   </div>
   <div class="mb-3">
@@ -27,7 +26,6 @@
       class="form-control"
       [(ngModel)]="currentProduct.title"
       pattern="[A-Za-z]{2,}"
-      required
     />
     <small
       class="text-danger w-100"
@@ -50,7 +48,6 @@
       name="quantity"
       id="quantity"
       min="0"
-      required
     />
   </div>
   <div class="mb-3">
@@ -62,7 +59,6 @@
       name="price"
       id="price"
       min="0"
-      required
     />
   </div>
 
@@ -75,7 +71,6 @@
       id="formFile"
       [(ngModel)]="currentProduct.image"
       name="image"
-      required
     />
   </div>
 
@@ -88,7 +83,6 @@
       id="category-id"
       [(ngModel)]="currentProduct['category-id']"
       name="category-id"
-      required
     >
       <option disabled selected></option>
       <option *ngFor="let cat of Categories" [value]="cat.id">
@@ -99,7 +93,7 @@
 
   <ng-container *ngIf="!currentProductID">
     <button
-      type="submit"
+      type="button"
       class="btn btn-success"
       (click)="addProduct()"
       [routerLink]="['/products']"
@@ -110,7 +104,7 @@
   </ng-container>
   <ng-container *ngIf="currentProductID">
     <button
-      type="submit"
+      type="button"
       class="btn btn-success"
       (click)="editProduct()"
       [routerLink]="['/products']"
