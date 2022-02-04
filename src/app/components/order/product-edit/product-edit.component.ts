@@ -41,19 +41,11 @@ export class ProductEditComponent implements OnInit {
   }
 
   editProduct(product: IProduct) {
-    const productInput: IProduct = {
-      id: product.id,
-      title: product.title,
-      quantity: product.quantity,
-      price: product.price,
-      'category-id': product['category-id'],
-    };
-
-    const productObservable = this.productsService.editProduct(productInput);
+    const productObservable = this.productsService.editProduct(product);
 
     const observer = {
       next: (prod: IProduct) => {
-        alert('product edited successfully');
+        // alert('product edited successfully');
         this.router.navigateByUrl('/products');
         return prod.id === this.product.id;
       },
@@ -63,4 +55,22 @@ export class ProductEditComponent implements OnInit {
 
     productObservable.subscribe(observer);
   }
+
+  deleteProduct(id: number) {
+    const deleteProductObservable = this.productsService.deleteProduct(id);
+
+    const observer = {
+      next: (prod: IProduct) => {
+        // alert('product deleted successfully');
+        this.router.navigateByUrl('/products');
+        return prod.id === this.product.id;
+      },
+      error: (err: Error) => alert('Error: ' + err.message),
+      complete: () => {},
+    };
+
+    deleteProductObservable.subscribe(observer);
+  }
+
+  confirmDeletion() {}
 }

@@ -38,12 +38,6 @@ export class CartChildComponent implements OnInit, OnChanges {
     this.purchaseDate = new Date();
   }
 
-  getProducts = () => {
-    this.productService
-      .getProducts()
-      .subscribe((products) => (this.productListByCat = products));
-  };
-
   ngOnChanges(): void {
     this.productService
       .getProductsByCatId(this.selectedCategoryInput)
@@ -53,7 +47,9 @@ export class CartChildComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.getProducts();
+    this.productService
+      .getProducts()
+      .subscribe((products) => (this.productListByCat = products));
   }
 
   hideTable() {
@@ -64,14 +60,6 @@ export class CartChildComponent implements OnInit, OnChanges {
 
   addToCart() {
     this.cartChanged.emit(this.cartOutput);
-  }
-
-  deleteProduct(id: number) {
-    this.productService.deleteProduct(id).subscribe(() => {
-      alert('product deleted successfully');
-    });
-
-    this.getProducts();
   }
 
   selectQuantity(

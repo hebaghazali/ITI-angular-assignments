@@ -29,6 +29,8 @@ export class ProductAddComponent {
       ['category-id']: +catid,
     };
 
+    const addProductObservable = this.productsService.addProduct(product);
+
     const observer = {
       next: (prod: IProduct) => {
         alert('product added successfully');
@@ -39,6 +41,6 @@ export class ProductAddComponent {
       complete: () => {},
     };
 
-    this.productsService.addProduct(product).subscribe(observer);
+    addProductObservable.subscribe(observer);
   }
 }
