@@ -1,0 +1,172 @@
+<!-- (ngSubmit)="addProduct($event)"  -->
+
+<form #productForm="ngForm" style="min-height: 63vh">
+  <div class="mb-3">
+    <div class="input-group-prepend">
+      <label for="title" class="form-label">ID</label>
+    </div>
+    <input
+      #productId="ngModel"
+      type="text"
+      name="id"
+      class="form-control"
+      [(ngModel)]="currentProduct.id"
+      [disabled]="!!currentProduct.id"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <div class="input-group-prepend">
+      <label for="title" class="form-label">Title</label>
+    </div>
+    <input
+      #productName="ngModel"
+      type="text"
+      name="title"
+      id="title"
+      class="form-control"
+      [(ngModel)]="currentProduct.title"
+      pattern="[A-Za-z]{2,}"
+      required
+    />
+    <small
+      class="text-danger w-100"
+      [hidden]="productName.valid || productName.untouched"
+      >Please make sure the title matches the format:
+      <ul>
+        <li *ngIf="productName.errors?.['']">Name should be</li>
+        <li *ngIf="productName.errors?.['pattern']">
+          Name must be 2 letters or more
+        </li>
+      </ul>
+    </small>
+  </div>
+  <div class="mb-3">
+    <label for="quantity" class="form-label">Quantity</label>
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="currentProduct.quantity"
+      name="quantity"
+      id="quantity"
+      min="0"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="currentProduct.price"
+      name="price"
+      id="price"
+      min="0"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="category-id" class="form-label">Image</label>
+
+    <input
+      class="form-control"
+      type="file"
+      id="formFile"
+      [(ngModel)]="currentProduct.image"
+      name="image"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="category-id" class="form-label">Category Name</label>
+
+    <select
+      class="form-select"
+      name="category"
+      id="category-id"
+      [(ngModel)]="currentProduct['category-id']"
+      name="category-id"
+      required
+    >
+      <option disabled selected></option>
+      <option *ngFor="let cat of Categories" [value]="cat.id">
+        {{ cat.name }}
+      </option>
+    </select>
+  </div>
+
+  <ng-container *ngIf="!currentProductID">
+    <button
+      type="submit"
+      class="btn btn-success"
+      (click)="addProduct()"
+      [routerLink]="['/products']"
+      [disabled]="productForm.invalid"
+    >
+      Add Product
+    </button>
+  </ng-container>
+  <ng-container *ngIf="currentProductID">
+    <button
+      type="submit"
+      class="btn btn-success"
+      (click)="editProduct()"
+      [routerLink]="['/products']"
+      [disabled]="productForm.invalid"
+    >
+      Edit Product
+    </button>
+  </ng-container>
+  <button
+    type="button"
+    class="btn btn-outline-success ms-2"
+    [routerLink]="['/products']"
+  >
+    Back to products
+  </button>
+  <button
+    type="button"
+    class="btn btn-danger buy-btn ms-2"
+    data-toggle="modal"
+    data-target="#deletionModal"
+    *ngIf="currentProductID"
+  >
+    Delete
+  </button>
+</form>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="deletionModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="deletionModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deletionModalLabel"></h5>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this product?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          No
+        </button>
+        <button
+          type="button"
+          data-dismiss="modal"
+          class="btn btn-primary"
+          (click)="deleteProduct(currentProduct.id)"
+        >
+          Yes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

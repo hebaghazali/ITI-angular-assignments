@@ -7,8 +7,7 @@ import { NotFoundComponent } from './components/notFound/notFound.component';
 import { CartChildComponent } from './components/order/cartChild/cart-child.component';
 import { CartParentComponent } from './components/order/cartParent/cart-parent.component';
 import { ProductDetailsComponent } from './components/order/product-details/product-details.component';
-import { ProductAddComponent } from './components/order/product-add/product-add.component';
-import { ProductEditComponent } from './components/order/product-edit/product-edit.component';
+import { ProductFormComponent } from './components/order/product-form/product-form.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LogoutComponent } from './components/logout/logout.component';
 
@@ -26,8 +25,8 @@ const routes: Routes = [
         component: CartParentComponent,
         canActivate: [AuthGuard],
       },
-      { path: 'add-product', component: ProductAddComponent },
-      { path: 'edit-product/:pid', component: ProductEditComponent },
+      { path: 'add-product', component: ProductFormComponent },
+      { path: 'add-product/:pid', component: ProductFormComponent },
     ],
   },
   { path: 'login', component: LoginComponent },

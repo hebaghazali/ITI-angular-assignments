@@ -21,8 +21,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/notFound/notFound.component';
 import { MainLayoutComponent } from './components/mainLayout/mainLayout.component';
 import { ProductDetailsComponent } from './components/order/product-details/product-details.component';
-import { ProductEditComponent } from './components/order/product-edit/product-edit.component';
-import { ProductAddComponent } from './components/order/product-add/product-add.component';
+import { ProductFormComponent } from './components/order/product-form/product-form.component';
 import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
@@ -40,8 +39,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     EGPNationalIDPipe,
     CreditCardPipe,
     ProductDetailsComponent,
-    ProductEditComponent,
-    ProductAddComponent,
+    ProductFormComponent,
     LogoutComponent,
   ],
   imports: [

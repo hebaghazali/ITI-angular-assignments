@@ -6,10 +6,13 @@
     style="height: 200px; width: 250px; object-fit: contain"
   />
   <div class="card-body my-4">
-    <h5 class="card-title">{{ product?.title }}</h5>
+    <h4 class="card-title fw-bold">{{ product?.title }}</h4>
     <div class="card-text mb-2">
-      <div class="price">Price: {{ product?.price }}</div>
-      <div class="quantity">Quantity: {{ product?.quantity }}</div>
+      <p><strong> Price: </strong> {{ product?.price }}</p>
+      <p><strong> Quantity: </strong> {{ product?.quantity }}</p>
+      <p *ngIf="product?.description">
+        <strong> Description: </strong> {{ product?.description }}
+      </p>
     </div>
     <div class="btn-group mt-5" role="group" aria-label="...">
       <button

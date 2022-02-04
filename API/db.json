@@ -263,24 +263,20 @@
   ],
   "categories": [
     {
-      "id": 0,
-      "name": "all"
-    },
-    {
       "id": 1,
-      "name": "men's clothing"
+      "name": "Men's clothing"
     },
     {
       "id": 2,
-      "name": "jewelery"
+      "name": "Jewelery"
     },
     {
       "id": 3,
-      "name": "electronics"
+      "name": "Electronics"
     },
     {
       "id": 4,
-      "name": "women's clothing"
+      "name": "Women's clothing"
     }
   ],
   "carts": [
