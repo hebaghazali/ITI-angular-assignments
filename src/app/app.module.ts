@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -23,6 +23,7 @@ import { MainLayoutComponent } from './components/mainLayout/mainLayout.componen
 import { ProductDetailsComponent } from './components/order/product-details/product-details.component';
 import { ProductFormComponent } from './components/order/product-form/product-form.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 
 @NgModule({
   declarations: [
@@ -41,10 +42,12 @@ import { LogoutComponent } from './components/logout/logout.component';
     ProductDetailsComponent,
     ProductFormComponent,
     LogoutComponent,
+    UserRegisterComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,

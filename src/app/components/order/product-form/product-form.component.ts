@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoriesService } from 'src/app/Services/categories.service';
 import { ProductsService } from '../../../Services/products.service';
@@ -51,14 +51,11 @@ export class ProductFormComponent implements OnInit {
     }
   }
 
-  addProduct() {
-    const addProductObservable = this.productsService.addProduct(
-      this.currentProduct
-    );
+  addProduct(product: IProduct) {
+    const addProductObservable = this.productsService.addProduct(product);
 
     const observer = {
       next: (prod: IProduct) => {
-        this.currentProduct = prod;
         this.router.navigateByUrl('/products');
       },
       error: (err: Error) => alert('Error: ' + err),
@@ -68,14 +65,14 @@ export class ProductFormComponent implements OnInit {
     addProductObservable.subscribe(observer);
   }
 
-  editProduct() {
-    const productObservable = this.productsService.editProduct(
-      this.currentProduct
-    );
+  editProduct(product: IProduct) {
+    const productObservable = this.productsService.editProduct(product);
 
     const observer = {
       next: (prod: IProduct) => {
-        this.currentProduct = prod;
+        console.log(product);
+        console.log(prod);
+
         this.router.navigateByUrl('/products');
       },
       error: (err: Error) => alert('Error: ' + err.message),

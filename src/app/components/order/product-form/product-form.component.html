@@ -12,6 +12,7 @@
       class="form-control"
       [(ngModel)]="currentProduct.id"
       [disabled]="!!currentProduct.id"
+      required
     />
   </div>
   <div class="mb-3">
@@ -26,13 +27,14 @@
       class="form-control"
       [(ngModel)]="currentProduct.title"
       pattern="[A-Za-z]{2,}"
+      required
     />
     <small
       class="text-danger w-100"
       [hidden]="productName.valid || productName.untouched"
       >Please make sure the title matches the format:
       <ul>
-        <li *ngIf="productName.errors?.['']">Name should be</li>
+        <li *ngIf="productName.errors?.['']">Name is required</li>
         <li *ngIf="productName.errors?.['pattern']">
           Name must be 2 letters or more
         </li>
@@ -48,6 +50,7 @@
       name="quantity"
       id="quantity"
       min="0"
+      required
     />
   </div>
   <div class="mb-3">
@@ -59,6 +62,7 @@
       name="price"
       id="price"
       min="0"
+      required
     />
   </div>
 
@@ -83,6 +87,7 @@
       id="category-id"
       [(ngModel)]="currentProduct['category-id']"
       name="category-id"
+      required
     >
       <option disabled selected></option>
       <option *ngFor="let cat of Categories" [value]="cat.id">
@@ -95,7 +100,7 @@
     <button
       type="button"
       class="btn btn-success"
-      (click)="addProduct()"
+      (click)="addProduct(currentProduct)"
       [routerLink]="['/products']"
       [disabled]="productForm.invalid"
     >
@@ -106,7 +111,7 @@
     <button
       type="button"
       class="btn btn-success"
-      (click)="editProduct()"
+      (click)="editProduct(currentProduct)"
       [routerLink]="['/products']"
       [disabled]="productForm.invalid"
     >

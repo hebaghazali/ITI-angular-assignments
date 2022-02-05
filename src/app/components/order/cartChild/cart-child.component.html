@@ -18,7 +18,7 @@
   >
     <img [src]="product.image" alt="image" class="product-img" />
     <p style="text-align: center; margin: 0.2rem auto">
-      <strong>{{ product.title }}</strong>
+      {{ product.title }}
     </p>
     <p>Quantity: {{ product.quantity }}</p>
     <p>{{ product.price | currency: "USD" }}</p>

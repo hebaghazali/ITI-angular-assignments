@@ -28,7 +28,7 @@ export class CartChildComponent implements OnInit, OnChanges {
   @Output() cartChanged: EventEmitter<CartVM>;
   cartOutput?: CartVM;
 
-  constructor(private productService: ProductsService, private router: Router) {
+  constructor(private productService: ProductsService) {
     this.cartChanged = new EventEmitter<CartVM>();
 
     this.isPurchased = false;

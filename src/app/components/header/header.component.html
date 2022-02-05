@@ -39,6 +39,15 @@
           >Login</a
         >
       </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          routerLink="/register"
+          routerLinkActive="active"
+          [hidden]="isLogged"
+          >Register</a
+        >
+      </li>
       <li class="nav-item" [hidden]="!username">Welcome, {{ username }}</li>
       <li class="nav-item">
         <!-- Button trigger modal -->

@@ -10,6 +10,7 @@ import { ProductDetailsComponent } from './components/order/product-details/prod
 import { ProductFormComponent } from './components/order/product-form/product-form.component';
 import { AuthGuard } from './guards/auth.guard';
 import { LogoutComponent } from './components/logout/logout.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
     ],
   },
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: UserRegisterComponent },
   { path: 'logout', component: LogoutComponent },
   { path: '**', component: NotFoundComponent },
 ];
