@@ -9,7 +9,6 @@ import {
 import { IProduct } from '../../../ViewModels/iproduct';
 import { CartVM } from '../../../ViewModels/cart';
 import { ProductsService } from './../../../Services/products.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-child',
