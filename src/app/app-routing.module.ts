@@ -28,6 +28,11 @@ const routes: Routes = [
       },
       { path: 'add-product', component: ProductFormComponent },
       { path: 'add-product/:pid', component: ProductFormComponent },
+      {
+        path: 'user',
+        loadChildren: () =>
+          import('./components/user/user.module').then((m) => m.UserModule),
+      },
     ],
   },
   { path: 'login', component: LoginComponent },
